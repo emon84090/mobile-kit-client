@@ -120,10 +120,17 @@ const Signup = () => {
 
     const signupForm = async (e) => {
         e.preventDefault();
-        createUserWithEmailAndPassword(email.value, password.value);
+        if (password.value !== confirmpass.value) {
+            switalert("password not matched", "error");
 
-        await updateProfile({ displayName: name.value });
-        // navigate('/appointment')
+        } else {
+            if (!name.value) {
+                return switalert("name must be 3 letter", "error");
+            }
+            createUserWithEmailAndPassword(email.value, password.value);
+            await updateProfile({ displayName: name.value });
+
+        }
 
     }
 

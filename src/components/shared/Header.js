@@ -6,7 +6,7 @@ import auth from '../auth/firebaseconfig';
 
 const Header = () => {
     const [user, loading, error] = useAuthState(auth);
-
+    console.log(user);
     const Menuitems = <>
         <li><Link to="/" className='font-semibold text-secondary capitalize'>Home</Link></li>
         <li><Link to="/" className='font-semibold text-secondary'>Tools</Link></li>
@@ -55,14 +55,14 @@ const Header = () => {
                             <div class="dropdown dropdown-end">
                                 <label tabindex="0" class="btn btn-ghost btn-circle avatar">
                                     <div class="w-10 rounded-full">
-                                        <img alt='' src="https://api.lorem.space/image/face?hash=33791" />
+                                        <img alt='' src={user?.photoURL ? user.photoURL : "https://i.ibb.co/tHX2Mmt/User-Avatar-in-Suit-PNG.png"} />
                                     </div>
                                 </label>
                                 <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                                     <li>
                                         <a class="justify-between">
                                             Profile
-                                            <span class="badge">New</span>
+                                            <span class="badge">{user?.displayName}</span>
                                         </a>
                                     </li>
 
