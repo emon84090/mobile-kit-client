@@ -30,7 +30,12 @@ const Addproduct = () => {
                 }
 
                 try {
-                    const result = await axios.post('http://localhost:5000/addproduct', formdata);
+                    const result = await axios.post('http://localhost:5000/addproduct', formdata, {
+                        headers: {
+                            'authorization': `bearer ${localStorage.getItem('accesstoken')}`
+                        }
+                    });
+
                     if (result.data.insertedId) {
                         switalert("product addedd success", "success");
                         navigate('/dashboard/manageproduct');

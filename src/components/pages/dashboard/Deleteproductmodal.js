@@ -7,8 +7,12 @@ const Deleteproductmodal = ({ setDelete, deleteid, refetch }) => {
 
     const deleteProduct = async () => {
         try {
-            const { data } = await axios.delete(`http://localhost:5000/delete/${deleteid}`);
-            console.log(data);
+            const { data } = await axios.delete(`http://localhost:5000/delete/${deleteid}`, {
+                headers: {
+                    'authorization': `bearer ${localStorage.getItem('accesstoken')}`
+                }
+            });
+
             if (data.deletedCount) {
                 switalert("delete success", "success");
                 refetch();

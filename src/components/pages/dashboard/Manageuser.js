@@ -21,6 +21,8 @@ const Manageuser = () => {
         return <Spinner></Spinner>
     }
 
+
+
     const makeadmin = async (email) => {
         try {
             const data = await fetch(`http://localhost:5000/user/admin/${email}`, {

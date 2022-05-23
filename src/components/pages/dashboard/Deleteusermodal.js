@@ -6,7 +6,11 @@ const Deleteusermodal = ({ deletemail, refetch, setDelete }) => {
 
     const deleteacount = async () => {
         try {
-            const { data } = await axios.delete(`http://localhost:5000/user/${deletemail}`);
+            const { data } = await axios.delete(`http://localhost:5000/user/${deletemail}`, {
+                headers: {
+                    'authorization': `bearer ${localStorage.getItem('accesstoken')}`
+                }
+            });
             if (data.deletedCount) {
                 switalert('users deleted success', "success");
                 setDelete(false)
