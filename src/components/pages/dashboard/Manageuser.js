@@ -1,10 +1,16 @@
 import { async } from '@firebase/util';
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import switalert from '../../shared/Alert';
 import Spinner from '../../shared/Spinner';
+import Deleteusermodal from './Deleteusermodal';
 
 const Manageuser = () => {
+    const [deletemodal, setDelete] = useState(false);
+    const [deletemail, setDelemail] = useState('');
+
+
     const { data: users, isLoading, refetch } = useQuery('products', () => fetch(`http://localhost:5000/users`, {
         headers: {
             'authorization': `bearer ${localStorage.getItem('accesstoken')}`
@@ -49,7 +55,7 @@ const Manageuser = () => {
             });
 
             const jsondata = await data.json();
-            console.log(jsondata);
+
             if (jsondata.modifiedCount > 0) {
                 switalert("admin removed done", "success");
             } else {
@@ -62,11 +68,18 @@ const Manageuser = () => {
         }
     }
 
+
+    const deleteac = (email) => {
+        setDelete(true);
+        setDelemail(email)
+    }
+
     return (
         <>
             <h2 className='text-2xl font-semibold ml-10 text-primary mt-10'>All Users</h2>
 
             <div className="users-table-conten p-4">
+                {deletemodal && <Deleteusermodal deletemail={deletemail} refetch={refetch} setDelete={setDelete}></Deleteusermodal>}
                 <div class="overflow-x-auto w-full">
                     <table class="table w-full text-center">
 
@@ -108,7 +121,7 @@ const Manageuser = () => {
                                         <button onClick={() => makeadmin(val.email)} class="btn btn-primary btn-md">Make admin</button>
                                     }
 
-                                    <button class="btn btn-error text-white btn-md ml-3">Delete</button>
+                                    <button onClick={() => deleteac(val.email)} class="btn btn-error text-white btn-md ml-3">Delete</button>
                                 </th>
                             </tr>)}
 
