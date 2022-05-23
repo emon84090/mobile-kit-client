@@ -1,5 +1,7 @@
+import { async } from '@firebase/util';
 import React from 'react';
 import { useQuery } from 'react-query';
+import switalert from '../../shared/Alert';
 import Spinner from '../../shared/Spinner';
 
 const Manageuser = () => {
@@ -11,6 +13,53 @@ const Manageuser = () => {
 
     if (isLoading) {
         return <Spinner></Spinner>
+    }
+
+    const makeadmin = async (email) => {
+        try {
+            const data = await fetch(`http://localhost:5000/user/admin/${email}`, {
+                method: "PUT",
+                headers: {
+                    'authorization': `bearer ${localStorage.getItem('accesstoken')}`
+                }
+            });
+
+            const jsondata = await data.json();
+
+            if (jsondata.modifiedCount > 0) {
+                switalert("admin added done", "success");
+            } else {
+                switalert("admin added faild", "error");
+            }
+
+            refetch();
+        } catch (err) {
+            switalert(`${err.message}`, "error");
+        }
+
+    }
+
+    const removeadmin = async (email) => {
+        try {
+            const data = await fetch(`http://localhost:5000/user/adminremove/${email}`, {
+                method: "PUT",
+                headers: {
+                    'authorization': `bearer ${localStorage.getItem('accesstoken')}`
+                }
+            });
+
+            const jsondata = await data.json();
+            console.log(jsondata);
+            if (jsondata.modifiedCount > 0) {
+                switalert("admin removed done", "success");
+            } else {
+                switalert("admin removed faild", "error");
+            }
+
+            refetch();
+        } catch (err) {
+            switalert(`${err.message}`, "error");
+        }
     }
 
     return (
@@ -52,9 +101,13 @@ const Manageuser = () => {
                                     {val.email}
 
                                 </td>
-                                <td>user</td>
+                                <td><span className='font-bold capitalize text-sm'>{val.role ? val.role : 'user'}</span></td>
                                 <th>
-                                    <button class="btn btn-primary btn-md">Make admin</button>
+                                    {val.role === "admin" ? <button onClick={() => removeadmin(val.email)} class="btn btn-primary btn-md">Remove admin</button>
+                                        :
+                                        <button onClick={() => makeadmin(val.email)} class="btn btn-primary btn-md">Make admin</button>
+                                    }
+
                                     <button class="btn btn-error text-white btn-md ml-3">Delete</button>
                                 </th>
                             </tr>)}
