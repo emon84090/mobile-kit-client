@@ -1,11 +1,12 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import switalert from '../../shared/Alert';
 const imageStoragekey = "1ef7c42bf0d139581c4d426179da13b1";
 
 const Addproduct = () => {
     const [uloading, setUloading] = useState(false);
-
+    const navigate = useNavigate();
     const addproduct = async (e) => {
         e.preventDefault();
         setUloading(true);
@@ -27,7 +28,20 @@ const Addproduct = () => {
                     image: img
 
                 }
-                console.log(formdata);
+
+                try {
+                    const result = await axios.post('http://localhost:5000/addproduct', formdata);
+                    if (result.data.insertedId) {
+                        switalert("product addedd success", "success");
+                        navigate('/dashboard/manageproduct');
+
+                    }
+
+                } catch (err) {
+
+                    switalert("product addedd faild", "error")
+                }
+
             }
             setUloading(false)
         } catch (err) {

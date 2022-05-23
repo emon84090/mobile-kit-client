@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from './firebaseconfig';
 import switalert from '../shared/Alert';
+import useToken from './useToken';
 
 const Signup = () => {
     const [signInWithGoogle, guser, gloading, gerror] = useSignInWithGoogle(auth);
@@ -15,14 +16,14 @@ const Signup = () => {
         error,
     ] = useCreateUserWithEmailAndPassword(auth);
 
-    // const [token] = useAuthToken(user || guser);
 
+    const [token] = useToken(user || guser);
 
     const navigate = useNavigate()
     const location = useLocation();
     let from = location.state?.from?.pathname || "/";
 
-    if (user || guser) {
+    if (token) {
         switalert('registration successfully', 'success');
         navigate(from, { replace: true });
     }

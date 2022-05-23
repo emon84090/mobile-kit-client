@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import switalert from '../shared/Alert';
 import auth from './firebaseconfig';
 import Forgetpass from './Forgetpass';
+import useToken from './useToken';
 
 
 const Signin = () => {
@@ -15,14 +16,15 @@ const Signin = () => {
         error,
     ] = useSignInWithEmailAndPassword(auth);
 
-    // const [token] = useAuthToken(user || guser);
+
+    const [token] = useToken(user || guser);
 
     const navigate = useNavigate()
     const location = useLocation();
     let from = location.state?.from?.pathname || "/";
 
 
-    if (user || guser) {
+    if (token) {
         switalert("login success", "success")
         navigate(from, { replace: true });
     }

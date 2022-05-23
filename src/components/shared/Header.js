@@ -6,7 +6,12 @@ import auth from '../auth/firebaseconfig';
 
 const Header = () => {
     const [user, loading, error] = useAuthState(auth);
-    console.log(user);
+
+    const signout = () => {
+        signOut(auth);
+        localStorage.removeItem("accesstoken");
+
+    }
     const Menuitems = <>
         <li><Link to="/" className='font-semibold text-secondary capitalize'>Home</Link></li>
         <li><Link to="/" className='font-semibold text-secondary'>Tools</Link></li>
@@ -66,7 +71,7 @@ const Header = () => {
                                         </a>
                                     </li>
 
-                                    <li><a onClick={() => signOut(auth)}>Logout</a></li>
+                                    <li><a onClick={signout}>Logout</a></li>
                                 </ul>
                             </div>
                         </>
