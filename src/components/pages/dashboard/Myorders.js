@@ -1,16 +1,19 @@
 import { async } from '@firebase/util';
 import axios from 'axios';
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import auth from '../../auth/firebaseconfig';
 import switalert from '../../shared/Alert';
 import Spinner from '../../shared/Spinner';
+import Cancelordermodal from './Cancelordermodal';
 
 const Myorders = () => {
     const [user, loading, error] = useAuthState(auth);
     const navigate = useNavigate();
+    const [deletemodal, setDelete] = useState(false);
+    const [deletemail, setDelemail] = useState('');
 
     const { data: myorder, isLoading, refetch } = useQuery('myorder', () => fetch(`http://localhost:5000/order/${user.email}`, {
         headers: {
@@ -23,34 +26,16 @@ const Myorders = () => {
     }
 
 
-    const cancelorder = async (id) => {
-        try {
-            const { data } = await axios.delete(`http://localhost:5000/cancelorder/${id}`, {
-                headers: {
-                    'authorization': `bearer ${localStorage.getItem('accesstoken')}`
-                }
-            });
-            if (data.deletedCount) {
-                switalert('order cancle success', "success");
-
-            } else {
-                switalert('order cancle  faild', "error");
-
-            }
-
-            refetch();
-        } catch (err) {
-            switalert('order cancle  faild', "error");
-
-        }
+    const cancelorder = (id) => {
+        setDelete(true);
+        setDelemail(id)
     }
-
     return (
         <>
             <h2 className='text-2xl font-semibold ml-10 text-primary mt-10'>My Order :{myorder.length}</h2>
 
             <div className="users-table-conten p-4">
-
+                {deletemodal && <Cancelordermodal cancleid={deletemail} refetch={refetch} setDelete={setDelete}></Cancelordermodal>}
                 <div class="overflow-x-auto w-full">
                     <table class="table w-full text-center">
 
