@@ -3,12 +3,14 @@ import axios from 'axios';
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
+import { Link, useNavigate } from 'react-router-dom';
 import auth from '../../auth/firebaseconfig';
 import switalert from '../../shared/Alert';
 import Spinner from '../../shared/Spinner';
 
 const Myorders = () => {
     const [user, loading, error] = useAuthState(auth);
+    const navigate = useNavigate();
 
     const { data: myorder, isLoading, refetch } = useQuery('myorder', () => fetch(`http://localhost:5000/order/${user.email}`, {
         headers: {
@@ -60,7 +62,7 @@ const Myorders = () => {
                                 <th>quantity</th>
 
                                 <th>total price</th>
-                                <th>status</th>
+                                <th>status/transection id</th>
                                 <th colSpan="2">action</th>
                             </tr>
                         </thead>
@@ -78,10 +80,20 @@ const Myorders = () => {
                                 <td><span className='font-bold'>{val.qty}</span></td>
 
                                 <td><span className='font-bold'>{val.qty * val.price}$</span></td>
-                                <td><span className='badge badge-error'>{val.status}</span></td>
+                                <td><span className={`badge ${val.status === "unpaid" ? 'badge-error' : 'badge-success'}`}>{val.status}</span> {val.transectionid && val.transectionid}</td>
                                 <th>
-                                    <button class="btn btn-success btn-sm text-white ml-3">payment</button>
-                                    <button onClick={() => cancelorder(val._id)} class="btn btn-error btn-sm text-white ml-3">Cancel</button>
+                                    {val.status === "unpaid" &&
+                                        <>
+                                            <Link to={`/dashboard/payment/${val._id}`}><button class="btn btn-success btn-sm text-white ml-3">payment</button></Link>
+                                            <button onClick={() => cancelorder(val._id)} class="btn btn-error btn-sm text-white ml-3">Cancel</button>
+                                        </>
+
+                                    }
+                                    {val.status === "pending" && <button className='btn btn-sm btn-success text-white btn-disabled'>pending</button>
+                                    }
+                                    {val.status === "shiped" && <button className='btn btn-sm btn-success text-white btn-disabled'>shiped</button>
+                                    }
+
                                 </th>
                             </tr>)}
 

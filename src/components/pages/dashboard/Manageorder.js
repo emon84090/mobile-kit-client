@@ -1,5 +1,7 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
+import switalert from '../../shared/Alert';
 import Spinner from '../../shared/Spinner';
 import Deleteordermodal from './Deleteordermodal';
 
@@ -23,6 +25,28 @@ const Manageorder = () => {
     }
 
 
+    const approveorder = async (id) => {
+        try {
+            const { data } = await axios.put(`http://localhost:5000/approveorder/${id}`, {
+                headers: {
+                    'authorization': `bearer ${localStorage.getItem('accesstoken')}`
+                }
+            });
+            console.log(data);
+            if (data.modifiedCount) {
+                switalert('order shipped success', "success");
+
+            } else {
+                switalert('order shipped faild', "error");
+
+            }
+            refetch();
+        } catch (err) {
+            switalert('order shipped faild', "error");
+
+        }
+    }
+
 
     return (
         <>
@@ -41,7 +65,7 @@ const Manageorder = () => {
                                 <th>quantity</th>
                                 <th>total price</th>
 
-                                <th>status</th>
+                                <th>status/transection id</th>
                                 <th colSpan="2">action</th>
                             </tr>
                         </thead>
@@ -60,15 +84,18 @@ const Manageorder = () => {
                                     <td> {val.address}</td>
                                     <td> <span className='font-bold'>{val.qty}</span></td>
                                     <td> <span className='font-bold'>{val.price * val.qty}$</span></td>
-                                    <td> <span className='badge badge-sm badge-warning'>{val.status}</span></td>
+                                    <td> <span className={`badge ${val.status === "unpaid" ? 'badge-error' : 'badge-success'}`}>{val.status}</span> {val.transectionid && val.transectionid}</td>
                                     <th>
-                                        <button class="btn btn-success btn-xs">approve</button>
-                                        <button onClick={() => deleteorder(val._id)} class="btn btn-error btn-xs ml-2">delete</button>
+                                        {val.status === "unpaid" && <button onClick={() => deleteorder(val._id)} class="btn btn-error btn-xs ml-2">delete</button>}
+                                        {val.status === "pending" && <button onClick={() => approveorder(val._id)} class="btn btn-success btn-xs">approve</button>}
+
+                                        {val.status === "shiped" && <button class="btn btn-success btn-xs btn-disabled">shiped</button>}
+
+
                                     </th>
                                 </tr>
                                 )
                             }
-
 
                         </tbody>
 

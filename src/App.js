@@ -14,6 +14,7 @@ import Manageuser from './components/pages/dashboard/Manageuser';
 import Mangeproduct from './components/pages/dashboard/Mangeproduct';
 import Myorders from './components/pages/dashboard/Myorders';
 import Myprofile from './components/pages/dashboard/Myprofile';
+import Payment from './components/pages/dashboard/Payment';
 import Home from './components/pages/Home page/Home';
 import Productbuy from './components/pages/Home page/Productbuy';
 import Footer from './components/shared/Footer';
@@ -42,6 +43,7 @@ const App = () => {
           <Route path='manageproduct' element={<Requareadmin><Mangeproduct></Mangeproduct></Requareadmin>}></Route>
 
           <Route path='myorders' element={<Myorders></Myorders>}></Route>
+          <Route path='payment/:id' element={<Payment></Payment>}></Route>
 
         </Route>
       </Routes>
