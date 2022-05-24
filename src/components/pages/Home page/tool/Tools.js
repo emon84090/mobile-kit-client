@@ -13,7 +13,7 @@ const Tools = () => {
     if (isLoading) {
         return <Spinner></Spinner>
     }
-    console.log(products);
+
     return (
         <>
             <h2 className='text-3xl font-bold text-center'>Find Your best choice</h2>
@@ -21,7 +21,7 @@ const Tools = () => {
             <div className="container mx-auto">
                 <div className="tools-all-content grid grid-cols-3 gap-3">
                     {
-                        products.map((val) => <div key={val._id} class="card card-compact  shadow-xl">
+                        products?.map((val) => <div key={val._id} class="card card-compact  shadow-xl">
                             <figure><img src={val.image} className='max-h-64' alt="Shoes" /></figure>
                             <div class="card-body">
                                 <div className="card-heading flex justify-between">

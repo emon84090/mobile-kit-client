@@ -1,4 +1,6 @@
+import { async } from '@firebase/util';
 import { data } from 'autoprefixer';
+import axios from 'axios';
 import React, { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
@@ -45,6 +47,49 @@ const Productbuy = () => {
 
 
     }
+    const placeorderform = async (e) => {
+        e.preventDefault();
+
+        const orderdata = {
+            name: e.target.bname.value,
+            email: e.target.bemail.value,
+            item_name: product.name,
+            qty: e.target.qty.value,
+            price: product.price
+        }
+
+        const newQty = Number(product.quantity) - Number(e.target.qty.value);
+        const updateqty = {
+            qty: newQty,
+            id: product._id
+        }
+        try {
+            const { data } = await axios.put(`http://localhost:5000/productqty`, updateqty, {
+                headers: {
+                    'authorization': `bearer ${localStorage.getItem('accesstoken')}`
+                }
+            });
+            if (data.modifiedCount) {
+                try {
+                    const postData = await axios.post(`http://localhost:5000/order`, orderdata, {
+                        headers: {
+                            'authorization': `bearer ${localStorage.getItem('accesstoken')}`
+                        }
+                    })
+
+                    switalert("order placed success", "success");
+                    refetch()
+                } catch (err) {
+                    switalert("order placed faild", "error");
+                }
+
+            }
+        } catch (err) {
+            switalert("order placed faild", "error");
+        }
+
+
+    }
 
     return (
         <>
@@ -54,7 +99,7 @@ const Productbuy = () => {
                     <div class="flex-none   relative">
                         <img src={product.image} alt="charger" class=" rounded-lg inset-0 w-full max-h-48  object-contain" />
                     </div>
-                    <form class="flex-auto p-6">
+                    <form class="flex-auto p-6" onSubmit={placeorderform}>
                         <div class="flex flex-wrap">
                             <h1 class="flex-auto text-xl capitalize font-semibold dark:text-gray-50">
                                 {product.name}
@@ -76,9 +121,9 @@ const Productbuy = () => {
                             </div>
                         </div>
 
-                        <input disabled value={user.displayName} type="text" placeholder="name" class="input border border-gray-300 mt-3 w-full" />
-                        <input disabled value={user.email} type="text" placeholder="email" class="input border border-gray-300 mt-3 w-full" />
-                        <input onChange={quantityhandle} defaultValue={product.minumumqty} type="number" placeholder="Quantity" class="input border border-gray-300 mt-3 w-full" />
+                        <input disabled value={user.displayName} type="text" placeholder="name" class="input border border-gray-300 mt-3 w-full" name='bname' />
+                        <input disabled value={user.email} type="text" placeholder="email" class="input border border-gray-300 mt-3 w-full" name='bemail' />
+                        <input onChange={quantityhandle} defaultValue={product.minumumqty} type="number" placeholder="Quantity" name='qty' class="input border border-gray-300 mt-3 w-full" />
 
 
                         <div class="flex mb-4 text-sm font-medium mt-5">
