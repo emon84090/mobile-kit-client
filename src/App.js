@@ -9,6 +9,7 @@ import Signup from './components/auth/Signup';
 import useAdmin from './components/auth/useAdmin';
 import Addproduct from './components/pages/dashboard/Addproduct';
 import Dashboard from './components/pages/dashboard/Dashboard';
+import Manageorder from './components/pages/dashboard/Manageorder';
 import Manageuser from './components/pages/dashboard/Manageuser';
 import Mangeproduct from './components/pages/dashboard/Mangeproduct';
 import Myorders from './components/pages/dashboard/Myorders';
@@ -36,6 +37,7 @@ const App = () => {
           <Route index element={<Privateroute><Myprofile></Myprofile></Privateroute>}></Route>
 
           <Route path='makeadmin' element={<Requareadmin><Manageuser></Manageuser></Requareadmin>}></Route>
+          <Route path='manageorder' element={<Requareadmin><Manageorder></Manageorder></Requareadmin>}></Route>
           <Route path='addproduct' element={<Requareadmin><Addproduct></Addproduct></Requareadmin>}></Route>
           <Route path='manageproduct' element={<Requareadmin><Mangeproduct></Mangeproduct></Requareadmin>}></Route>
 

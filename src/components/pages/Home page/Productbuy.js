@@ -1,7 +1,8 @@
 import { async } from '@firebase/util';
 import { data } from 'autoprefixer';
 import axios from 'axios';
-import React, { useState } from 'react';
+import { signOut } from 'firebase/auth';
+import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
@@ -15,6 +16,23 @@ const Productbuy = () => {
     const [qty, setQty] = useState();
     const [disabled, setDisabled] = useState(false);
 
+    // const [product, setProduct] = useState();
+
+
+    // useEffect(() => {
+    //     const getData = async () => {
+    //         const { data } = await axios.get(`http://localhost:5000/allproduct/${id}`, {
+    //             headers: {
+    //                 'authorization': `bearer ${localStorage.getItem('accesstoken')}`
+    //             }
+    //         })
+
+    //         setProduct(data);
+
+
+    //     }
+    //     getData();
+    // }, [product])
 
 
 
@@ -25,10 +43,15 @@ const Productbuy = () => {
     }).then((res) => res.json()))
 
 
-
     if (isLoading) {
         return <Spinner></Spinner>
     }
+
+    if (product.message === "forbidden access") {
+        signOut(auth);
+    }
+
+
 
     const quantityhandle = (e) => {
         const value = Number(e.target.value);
@@ -38,24 +61,37 @@ const Productbuy = () => {
 
         } else if (value > Number(product.maximumqty)) {
             setDisabled(true);
-            return switalert(`minimum qty ${product.maximumqty}`, "error");
+            return switalert(`maximum qty ${product.maximumqty}`, "error");
 
         } else {
             setQty(e.target.value);
             setDisabled(false);
+
+
         }
 
 
     }
     const placeorderform = async (e) => {
         e.preventDefault();
+        const qty = e.target.qty.value;
 
         const orderdata = {
             name: e.target.bname.value,
             email: e.target.bemail.value,
             item_name: product.name,
-            qty: e.target.qty.value,
-            price: product.price
+            qty: qty,
+            price: product.price,
+            phone: e.target.bphone.value,
+            address: e.target.baddress.value,
+            status: "unpaid",
+        }
+
+
+        if (qty > Number(product.quantity)) {
+
+            setDisabled(true);
+            return switalert(`sorry avilable quantity ${product.quantity}`, "error");
         }
 
         const newQty = Number(product.quantity) - Number(e.target.qty.value);
@@ -78,7 +114,7 @@ const Productbuy = () => {
                     })
 
                     switalert("order placed success", "success");
-                    refetch()
+
                 } catch (err) {
                     switalert("order placed faild", "error");
                 }
@@ -95,35 +131,39 @@ const Productbuy = () => {
         <>
             <div className="singleproduct-all py-10 min-h-screen flex justify-center items-center">
 
-                <div class="flex flex-col  bg-white dark:bg-gray-800  rounded-lg shadow-xl">
+                <div class="flex flex-col max-w-lg w-full bg-white dark:bg-gray-800  rounded-lg shadow-xl">
                     <div class="flex-none   relative">
-                        <img src={product.image} alt="charger" class=" rounded-lg inset-0 w-full max-h-48  object-contain" />
+                        <img src={product?.image} alt="charger" class=" rounded-lg inset-0 w-full max-h-48  object-contain" />
                     </div>
                     <form class="flex-auto p-6" onSubmit={placeorderform}>
                         <div class="flex flex-wrap">
                             <h1 class="flex-auto text-xl capitalize font-semibold dark:text-gray-50">
-                                {product.name}
+                                {product?.name}
                             </h1>
 
                             <div class="text-xl font-semibold text-gray-500 dark:text-gray-300">
-                                {product.price}$
+                                {product?.price}$
                             </div>
 
                             <div class="w-full flex-none text-sm font-medium text-gray-500 dark:text-gray-300 mt-2">
                                 <h1 class="flex-auto text-xl text-primary mb-3 capitalize font-semibold ">
-                                    avilable qty: {product.quantity}
+                                    avilable qty: {product?.quantity}
                                 </h1>
 
-                                minimum quantity <span className='font-bold text-gray-600'>{product.minumumqty}</span>
+                                minimum quantity <span className='font-bold text-gray-600'>{product?.minumumqty}</span>
                             </div>
                             <div class="w-full flex-none text-sm font-medium text-gray-500 dark:text-gray-300 mt-2">
-                                maximum quantity <span className='font-bold text-gray-600'>{product.maximumqty}</span>
+                                maximum quantity <span className='font-bold text-gray-600'>{product?.maximumqty}</span>
                             </div>
                         </div>
 
                         <input disabled value={user.displayName} type="text" placeholder="name" class="input border border-gray-300 mt-3 w-full" name='bname' />
                         <input disabled value={user.email} type="text" placeholder="email" class="input border border-gray-300 mt-3 w-full" name='bemail' />
-                        <input onChange={quantityhandle} defaultValue={product.minumumqty} type="number" placeholder="Quantity" name='qty' class="input border border-gray-300 mt-3 w-full" />
+
+                        <input type="text" placeholder="phone" class="input border border-gray-300 mt-3 w-full" name='bphone' required />
+                        <input type="text" placeholder="address" class="input border border-gray-300 mt-3 w-full" name='baddress' required />
+
+                        <input onChange={quantityhandle} value={qty} type="number" placeholder="Quantity" name='qty' class="input border border-gray-300 mt-3 w-full" required />
 
 
                         <div class="flex mb-4 text-sm font-medium mt-5">
