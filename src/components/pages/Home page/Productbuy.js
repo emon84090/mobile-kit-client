@@ -163,7 +163,7 @@ const Productbuy = () => {
                         <input type="text" placeholder="phone" class="input border border-gray-300 mt-3 w-full" name='bphone' required />
                         <input type="text" placeholder="address" class="input border border-gray-300 mt-3 w-full" name='baddress' required />
 
-                        <input onChange={quantityhandle} value={qty} type="number" placeholder="Quantity" name='qty' class="input border border-gray-300 mt-3 w-full" required />
+                        <input onChange={quantityhandle} defaultValue={product?.minumumqty} type="number" placeholder="Quantity" name='qty' class="input border border-gray-300 mt-3 w-full" required />
 
 
                         <div class="flex mb-4 text-sm font-medium mt-5">

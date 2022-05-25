@@ -8,6 +8,7 @@ import Signin from './components/auth/Signin';
 import Signup from './components/auth/Signup';
 import useAdmin from './components/auth/useAdmin';
 import Addproduct from './components/pages/dashboard/Addproduct';
+import Addreview from './components/pages/dashboard/Addreview';
 import Dashboard from './components/pages/dashboard/Dashboard';
 import Manageorder from './components/pages/dashboard/Manageorder';
 import Manageuser from './components/pages/dashboard/Manageuser';
@@ -43,6 +44,8 @@ const App = () => {
           <Route path='manageproduct' element={<Requareadmin><Mangeproduct></Mangeproduct></Requareadmin>}></Route>
 
           <Route path='myorders' element={<Myorders></Myorders>}></Route>
+          <Route path='addreview' element={<Addreview></Addreview>}></Route>
+
           <Route path='payment/:id' element={<Payment></Payment>}></Route>
 
         </Route>
