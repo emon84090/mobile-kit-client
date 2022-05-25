@@ -1,68 +1,57 @@
 import React, { useRef, useState } from "react";
-// Import Swiper React components
+
 import { Swiper, SwiperSlide } from "swiper/react";
 
-// Import Swiper styles
+
 import "swiper/css";
 import "swiper/css/navigation";
 
-// import required modules
+
 import { Navigation, Autoplay } from "swiper";
+import { useQuery } from "react-query";
+import Spinner from "../../../shared/Spinner";
 const Reviews = () => {
 
+    const { data: review, isLoading, refetch } = useQuery('review', () => fetch(`http://localhost:5000/review`, {
+        headers: {
+            'authorization': `bearer ${localStorage.getItem('accesstoken')}`
+        }
+    }).then((res) => res.json()))
 
+    if (isLoading) {
+        return <Spinner></Spinner>
+    }
+    console.log(review);
     return (
         <>
-            <div className="review-all-content px-12 py-10">
+            <div className="review-all-content px-2 md:px-12 py-32 mt-10 bg-rose-100">
                 <Swiper navigation={true} autoplay={{
                     delay: 2500,
                     disableOnInteraction: false,
                 }}
                     modules={[Navigation, Autoplay]} className="mySwiper">
-                    <SwiperSlide>
-                        <figure class="md:flex bg-slate-100 rounded-xl p-8 md:p-0 dark:bg-slate-800">
-                            <img class="w-24 h-24 md:w-48 md:h-auto md:rounded-none rounded-full mx-auto" src="https://i.ibb.co/tZF8hxF/my.jpg" alt="" width="384" height="512" />
-                            <div class="pt-6 md:p-8 text-center md:text-left space-y-4">
-                                <blockquote>
-                                    <p class="text-lg font-medium">
-                                        Tailwind CSS is the only framework that I've seen scale
-                                        on large teams. It’s easy to customize, adapts to any design,
-                                        and the build size is tiny
-                                    </p>
-                                </blockquote>
-                                <figcaption class="font-medium">
-                                    <div class="text-sky-500 dark:text-sky-400">
-                                        Sarah Dayan
+                    {review?.map((val) => <SwiperSlide>
+                        <div class="max-w-3xl py-6 mx-auto p-4 text-gray-800 bg-white rounded-lg shadow-2xl">
+                            <div class="mb-2">
+                                <div class="h-3 text-3xl text-left text-rose-600">“</div>
+                                <p class="px-4 text-center text-gray-600">
+                                    {val.reviews}”
+                                </p>
+                                <div class="h-3 text-3xl text-right text-rose-600">”</div>
+                                <div class="text-center">
+                                    <div class="avatar">
+                                        <div class="w-16 rounded-full">
+                                            <img src={val.userimage} />
+                                        </div>
                                     </div>
-                                    <div class="text-slate-700 dark:text-slate-500">
-                                        Staff Engineer, Algolia
-                                    </div>
-                                </figcaption>
+                                    <h5 class="font-bold text-rose-600">{val.name}</h5>
+
+                                </div>
                             </div>
-                        </figure>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <figure class="md:flex bg-slate-100 rounded-xl p-8 md:p-0 dark:bg-slate-800">
-                            <img class="w-24 h-24 md:w-48 md:h-auto md:rounded-none rounded-full mx-auto" src="https://i.ibb.co/tZF8hxF/my.jpg" alt="" width="384" height="512" />
-                            <div class="pt-6 md:p-8 text-center md:text-left space-y-4">
-                                <blockquote>
-                                    <p class="text-lg font-medium">
-                                        Tailwind CSS is the only framework that I've seen scale
-                                        on large teams. It’s easy to customize, adapts to any design,
-                                        and the build size is tiny
-                                    </p>
-                                </blockquote>
-                                <figcaption class="font-medium">
-                                    <div class="text-sky-500 dark:text-sky-400">
-                                        Sarah Dayan
-                                    </div>
-                                    <div class="text-slate-700 dark:text-slate-500">
-                                        Staff Engineer, Algolia
-                                    </div>
-                                </figcaption>
-                            </div>
-                        </figure>
-                    </SwiperSlide>
+                        </div>
+                    </SwiperSlide>)}
+
+
 
                 </Swiper>
             </div>
