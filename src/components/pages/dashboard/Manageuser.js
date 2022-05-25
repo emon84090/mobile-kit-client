@@ -11,7 +11,7 @@ const Manageuser = () => {
     const [deletemail, setDelemail] = useState('');
 
 
-    const { data: users, isLoading, refetch } = useQuery('products', () => fetch(`http://localhost:5000/users`, {
+    const { data: users, isLoading, refetch } = useQuery('users', () => fetch(`http://localhost:5000/users`, {
         headers: {
             'authorization': `bearer ${localStorage.getItem('accesstoken')}`
         }

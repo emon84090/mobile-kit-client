@@ -30,7 +30,7 @@ const Reviews = () => {
                     disableOnInteraction: false,
                 }}
                     modules={[Navigation, Autoplay]} className="mySwiper">
-                    {review?.map((val) => <SwiperSlide>
+                    {review?.map((val) => <SwiperSlide key={val._id}>
                         <div class="max-w-3xl py-6 mx-auto p-4 text-gray-800 bg-white rounded-lg shadow-2xl">
                             <div class="mb-2">
                                 <div class="h-3 text-3xl text-left text-rose-600">“</div>
@@ -41,7 +41,7 @@ const Reviews = () => {
                                 <div class="text-center">
                                     <div class="avatar">
                                         <div class="w-16 rounded-full">
-                                            <img src={val.userimage} />
+                                            <img alt="userimage" src={val.userimage} />
                                         </div>
                                     </div>
                                     <h5 class="font-bold text-rose-600">{val.name}</h5>
