@@ -128,7 +128,7 @@ const Signup = () => {
             if (!name.value) {
                 return switalert("name must be 3 letter", "error");
             }
-            createUserWithEmailAndPassword(email.value, password.value);
+            await createUserWithEmailAndPassword(email.value, password.value);
             await updateProfile({ displayName: name.value });
 
         }

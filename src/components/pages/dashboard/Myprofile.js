@@ -10,7 +10,7 @@ import Spinner from '../../shared/Spinner';
 
 const Myprofile = () => {
     const [user, loading, error] = useAuthState(auth);
-
+    console.log(user);
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
     const { data: users, isLoading, refetch } = useQuery('singleuser', () => fetch(`http://localhost:5000/users/${user.email}`, {
@@ -43,7 +43,7 @@ const Myprofile = () => {
                 });
 
                 switalert("profile updated success", "success");
-
+                refetch();
 
             } catch (err) {
 
@@ -61,9 +61,32 @@ const Myprofile = () => {
 
                 <div class="avatar mt-5   z-50">
                     <div class="w-24  rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                        <img src={users?.photo} alt="" />
+                        {user.providerData[0].providerId === "google.com" ? <img src={user.photoURL} alt='' /> : <img src={users?.image ? users?.image : "https://i.ibb.co/tHX2Mmt/User-Avatar-in-Suit-PNG.png"} alt="" />}
+
                     </div>
                 </div>
+
+                <div class="shadow-lg mb-5 rounded-2xl max-w-md mx-auto w-full py-10 bg-white dark:bg-gray-800">
+
+                    <div class="flex flex-col items-center justify-center p-4 -mt-16">
+
+                        <p class="text-gray-800  dark:text-white text-xl font-medium mt-3">
+                            {user.displayName}
+                        </p>
+
+                        <p class="text-gray-800 dark:text-white text-xl font-medium mt-2">
+                            {user.email}
+                        </p>
+                        <p class="text-gray-800 dark:text-white text-xl font-medium mt-2">
+                            {users?.newdata?.phone}
+                        </p>
+                        <p class="text-gray-800 dark:text-white text-xl font-medium mt-2">
+                            {users?.newdata?.location}
+                        </p>
+
+                    </div>
+                </div>
+
                 <div class="card bg-rose-100 max-w-lg w-full mx-auto  shadow-xl">
                     <div class="card-body">
 

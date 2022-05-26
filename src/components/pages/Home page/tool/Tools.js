@@ -16,10 +16,10 @@ const Tools = () => {
 
     return (
         <>
-            <h2 className='text-3xl font-bold text-center'>Find Your best choice</h2>
+            <h2 className='text-3xl font-bold mt-10 text-center'>Find Your best choice</h2>
 
             <div className="container mx-auto">
-                <div className="tools-all-content grid grid-cols-3 gap-3">
+                <div className="tools-all-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                     {
                         products?.map((val) => <div key={val._id} class="card card-compact  shadow-xl">
                             <figure><img src={val.image} className='max-h-64' alt="Shoes" /></figure>
@@ -31,8 +31,11 @@ const Tools = () => {
 
                                 <p className='text-sm font-semibold text-neutral capitalize'>minimum order quantity: {val.minumumqty} pis</p>
                                 <p className='text-sm font-semibold text-neutral capitalize'>maximum order quantity: {val.maximumqty} pis</p>
+                                <p className='text-md font-semibold text-gray-500 my-3'>{val.discription}</p>
+
                                 <p className='text-lg font-bold text-neutral capitalize'>price: {val.price}$</p>
-                                <p className='text-md text-gray-500'>{val.dis}</p>
+
+
 
                                 <div class="card-actions justify-start mt-1">
                                     <Link className='w-full' to={`/productbuy/${val._id}`}>

@@ -51,7 +51,7 @@ const Mangeproduct = () => {
                                     </div>
                                 </div></td>
                                 <td>{val.name}</td>
-                                <td>{val.discription}</td>
+                                <td>{val.discription.slice(0, 40)}....</td>
                                 <td>{val.price}$</td>
                                 <td>{val.quantity}$</td>
                                 <td><button onClick={() => deletefun(val._id)} className='btn btn-error btn-sm text-white font-semibold'>Delete</button></td>

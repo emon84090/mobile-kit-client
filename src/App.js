@@ -7,6 +7,7 @@ import Requareadmin from './components/auth/Requareadmin';
 import Signin from './components/auth/Signin';
 import Signup from './components/auth/Signup';
 import useAdmin from './components/auth/useAdmin';
+import Blog from './components/pages/Blog/Blog';
 import Addproduct from './components/pages/dashboard/Addproduct';
 import Addreview from './components/pages/dashboard/Addreview';
 import Dashboard from './components/pages/dashboard/Dashboard';
@@ -18,6 +19,7 @@ import Myprofile from './components/pages/dashboard/Myprofile';
 import Payment from './components/pages/dashboard/Payment';
 import Home from './components/pages/Home page/Home';
 import Productbuy from './components/pages/Home page/Productbuy';
+import Portfolio from './components/pages/portfolio/Portfolio';
 import Footer from './components/shared/Footer';
 import Header from './components/shared/Header';
 
@@ -25,6 +27,7 @@ const App = () => {
   const [user, loading, error] = useAuthState(auth);
   const [admin] = useAdmin(user);
 
+  console.log(user);
   return (
     <>
       <Header></Header>
@@ -33,6 +36,9 @@ const App = () => {
         <Route path='/signin' element={<Signin></Signin>}></Route>
         <Route path='/signup' element={<Signup></Signup>}></Route>
         <Route path='/signup' element={<Signup></Signup>}></Route>
+        <Route path='/portfolio' element={<Portfolio></Portfolio>}></Route>
+        <Route path='/blog' element={<Blog></Blog>}></Route>
+
         <Route path='/productbuy/:id' element={<Privateroute><Productbuy></Productbuy></Privateroute>}></Route>
         <Route path='/dashboard' element={<Privateroute><Dashboard></Dashboard></Privateroute>}>
 

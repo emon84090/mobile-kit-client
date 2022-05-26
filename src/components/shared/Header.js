@@ -12,11 +12,11 @@ const Header = () => {
         localStorage.removeItem("accesstoken");
 
     }
+
     const Menuitems = <>
         <li><Link to="/" className='font-semibold text-secondary capitalize'>Home</Link></li>
-        <li><Link to="/" className='font-semibold text-secondary'>Tools</Link></li>
-        <li><Link to="/" className='capitalize font-semibold text-secondary'>summary</Link></li>
-        <li><Link to="/" className='capitalize font-semibold text-secondary'>reviews</Link></li>
+        <li><Link to="/blog" className='font-semibold text-secondary capitalize'>Blog</Link></li>
+        <li><Link to="/portfolio" className='font-semibold text-secondary capitalize'>Portfolio</Link></li>
 
         {!user &&
             <>

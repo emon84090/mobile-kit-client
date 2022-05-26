@@ -14,6 +14,7 @@ const Addreview = () => {
         const formdata = {
             name: e.target.username.value,
             reviews: e.target.review.value,
+            reviewcount: e.target.reviewcount.value,
             userimage: image
         }
 
@@ -54,12 +55,30 @@ const Addreview = () => {
                                 <input name='username' value={user?.displayName} type="text" placeholder="Type here" class="input input-bordered w-full input-disabled" />
 
                             </div>
+
+                            <div class="form-control w-full">
+                                <label class="label">
+                                    <span class="label-text">review star</span>
+
+                                </label>
+                                <select name='reviewcount' class="select w-full border border-gray-200" required>
+
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option selected value="5">5</option>
+
+                                </select>
+
+                            </div>
+
                             <div class="form-control w-full">
                                 <label class="label">
                                     <span class="label-text"> Review</span>
 
                                 </label>
-                                <textarea class="textarea w-full  border border-gray-300" placeholder="Bio" name='review'></textarea>
+                                <textarea class="textarea w-full  border border-gray-300" placeholder="Bio" name='review' required></textarea>
 
                             </div>
                             <button type='submit' className='btn btn-primary mt-3'>add</button>

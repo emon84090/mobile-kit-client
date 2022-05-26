@@ -10,6 +10,7 @@ import "swiper/css/navigation";
 import { Navigation, Autoplay } from "swiper";
 import { useQuery } from "react-query";
 import Spinner from "../../../shared/Spinner";
+import ReactStars from "react-rating-stars-component";
 const Reviews = () => {
 
     const { data: review, isLoading, refetch } = useQuery('review', () => fetch(`http://localhost:5000/review`, {
@@ -21,10 +22,12 @@ const Reviews = () => {
     if (isLoading) {
         return <Spinner></Spinner>
     }
-    console.log(review);
+
     return (
         <>
-            <div className="review-all-content px-2 md:px-12 py-32 mt-10 bg-rose-100">
+
+            <div className="review-all-content  px-2 md:px-12 py-10  bg-rose-100">
+                <h2 className="text-center card-title justify-center mb-10">What Think Our Customer?</h2>
                 <Swiper navigation={true} autoplay={{
                     delay: 2500,
                     disableOnInteraction: false,
@@ -45,7 +48,15 @@ const Reviews = () => {
                                         </div>
                                     </div>
                                     <h5 class="font-bold text-rose-600">{val.name}</h5>
+                                    <div className="stars flex mt-2 justify-center items-center">
+                                        <ReactStars
+                                            count={5}
 
+                                            size={24}
+                                            value={Number(val.reviewcount)}
+                                            activeColor="#ffd700"
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>
