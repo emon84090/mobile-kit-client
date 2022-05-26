@@ -9,9 +9,9 @@ const Summary = () => {
 
                 <section class="mb-32 text-gray-800 text-center">
                     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-6 lg:gap-x-0 items-center">
-                        <div class="mb-12 lg:mb-0 relative">
-                            <div className="icons">
-                                <i class='bx bxs-user text-5xl text-primary mb-2'></i>
+                        <div class="mb-12 lg:mb-0 relative card-body justify-center">
+                            <div className="icons text-center">
+                                <img className='w-16 mx-auto' src="https://www.cdn.mobileemart.com/default/images/user.png" alt="" srcset="" />
                             </div>
                             <h5 class="text-lg font-medium text-primary  mb-4">500+</h5>
                             <h6 class="font-medium text-gray-500">Users</h6>
