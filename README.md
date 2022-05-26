@@ -23,4 +23,4 @@
 
 
  here is the live link
-Open [live site](https://delicate-madeleine-908fbb.netlify.app/) to view it in your browser.
+Open [live site](https://mobile-kit.netlify.app/) to view it in your browser.

@@ -31,13 +31,16 @@ const Manageorder = () => {
     }
 
     const approveorder = async (id) => {
+
         try {
-            const { data } = await axios.put(`https://floating-eyrie-91956.herokuapp.com/approveorder/${id}`, {
+            const { data } = await axios.put(`http://localhost:5000/approveorder/${id}`, {
                 headers: {
                     'authorization': `bearer ${localStorage.getItem('accesstoken')}`
                 }
             });
             console.log(data);
+
+
             if (data.modifiedCount) {
                 switalert('order shipped success', "success");
 
