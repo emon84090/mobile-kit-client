@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Spinner from '../../../shared/Spinner';
 
 const Tools = () => {
-    const { data: products, isLoading, refetch } = useQuery('allproducts', () => fetch(`http://localhost:5000/allproduct`, {
+    const { data: products, isLoading, refetch } = useQuery('allproducts', () => fetch(`https://floating-eyrie-91956.herokuapp.com/allproduct`, {
         headers: {
             'authorization': `bearer ${localStorage.getItem('accesstoken')}`
         }
@@ -21,12 +21,12 @@ const Tools = () => {
             <div className="container mx-auto">
                 <div className="tools-all-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                     {
-                        products?.map((val) => <div key={val._id} class="card card-compact  shadow-xl">
+                        products?.map((val) => <div key={val._id} className="card card-compact  shadow-xl">
                             <figure><img src={val.image} className='max-h-64' alt="Shoes" /></figure>
-                            <div class="card-body">
+                            <div className="card-body">
                                 <div className="card-heading flex justify-between">
-                                    <h2 class="card-title">{val.name}</h2>
-                                    <div class="badge badge-primary">available quantity {val.quantity}</div>
+                                    <h2 className="card-title">{val.name}</h2>
+                                    <div className="badge badge-primary">available quantity {val.quantity}</div>
                                 </div>
 
                                 <p className='text-sm font-semibold text-neutral capitalize'>minimum order quantity: {val.minumumqty} pis</p>
@@ -37,9 +37,9 @@ const Tools = () => {
 
 
 
-                                <div class="card-actions justify-start mt-1">
+                                <div className="card-actions justify-start mt-1">
                                     <Link className='w-full' to={`/productbuy/${val._id}`}>
-                                        <button class="btn btn-outline btn-primary w-full">Buy Now</button></Link>
+                                        <button className="btn btn-outline btn-primary w-full">Buy Now</button></Link>
                                 </div>
                             </div>
                         </div>)

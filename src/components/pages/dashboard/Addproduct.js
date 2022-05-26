@@ -30,7 +30,7 @@ const Addproduct = () => {
                 }
 
                 try {
-                    const result = await axios.post('http://localhost:5000/addproduct', formdata, {
+                    const result = await axios.post('https://floating-eyrie-91956.herokuapp.com/addproduct', formdata, {
                         headers: {
                             'authorization': `bearer ${localStorage.getItem('accesstoken')}`
                         }
@@ -61,63 +61,63 @@ const Addproduct = () => {
             <div className="addproduct min-h-screen w-full">
                 <h2 className='text-2xl font-semibold ml-10 text-primary mt-10'>Add Product</h2>
 
-                <div class="card max-w-md mx-auto w-full shadow-xl py-5">
-                    <div class="card-body w-full py-5">
+                <div className="card max-w-md mx-auto w-full shadow-xl py-5">
+                    <div className="card-body w-full py-5">
                         <form onSubmit={addproduct}>
-                            <div class="form-control w-full">
-                                <label class="label">
-                                    <span class="label-text font-semibold">Enter name</span>
+                            <div className="form-control w-full">
+                                <label className="label">
+                                    <span className="label-text font-semibold">Enter name</span>
 
                                 </label>
-                                <input type="text" placeholder="Type here" class="input input-bordered w-full" required name='pname' />
+                                <input type="text" placeholder="Type here" className="input input-bordered w-full" required name='pname' />
 
                             </div>
-                            <div class="form-control w-full mt-1">
-                                <label class="label">
-                                    <span class="label-text font-semibold">Enter discription</span>
+                            <div className="form-control w-full mt-1">
+                                <label className="label">
+                                    <span className="label-text font-semibold">Enter discription</span>
 
                                 </label>
-                                <input type="text" placeholder="Type here" class="input input-bordered w-full" required name='pdis' />
+                                <input type="text" placeholder="Type here" className="input input-bordered w-full" required name='pdis' />
 
                             </div>
-                            <div class="form-control w-full mt-1">
-                                <label class="label">
-                                    <span class="label-text font-semibold">Enter quantity</span>
+                            <div className="form-control w-full mt-1">
+                                <label className="label">
+                                    <span className="label-text font-semibold">Enter quantity</span>
 
                                 </label>
-                                <input type="text" placeholder="Type here" class="input input-bordered w-full" required name='pqty' />
+                                <input type="text" placeholder="Type here" className="input input-bordered w-full" required name='pqty' />
 
                             </div>
-                            <div class="form-control w-full mt-1">
-                                <label class="label">
-                                    <span class="label-text font-semibold">minimum quantity</span>
+                            <div className="form-control w-full mt-1">
+                                <label className="label">
+                                    <span className="label-text font-semibold">minimum quantity</span>
 
                                 </label>
-                                <input type="number" placeholder="Type here" class="input input-bordered w-full" required name='pminimumqty' />
+                                <input type="number" placeholder="Type here" className="input input-bordered w-full" required name='pminimumqty' />
 
                             </div>
-                            <div class="form-control w-full mt-1">
-                                <label class="label">
-                                    <span class="label-text font-semibold">maximum quantity</span>
+                            <div className="form-control w-full mt-1">
+                                <label className="label">
+                                    <span className="label-text font-semibold">maximum quantity</span>
 
                                 </label>
-                                <input type="number" placeholder="Type here" class="input input-bordered w-full" required name='pmaxmimumqty' />
+                                <input type="number" placeholder="Type here" className="input input-bordered w-full" required name='pmaxmimumqty' />
 
                             </div>
-                            <div class="form-control w-full mt-1">
-                                <label class="label">
-                                    <span class="label-text font-semibold">price</span>
+                            <div className="form-control w-full mt-1">
+                                <label className="label">
+                                    <span className="label-text font-semibold">price</span>
 
                                 </label>
-                                <input type="number" placeholder="Type here" class="input input-bordered w-full" required name='pprice' />
+                                <input type="number" placeholder="Type here" className="input input-bordered w-full" required name='pprice' />
 
                             </div>
-                            <div class="form-control w-full mt-1 ">
-                                <label class="label">
-                                    <span class="label-text font-semibold">image</span>
+                            <div className="form-control w-full mt-1 ">
+                                <label className="label">
+                                    <span className="label-text font-semibold">image</span>
 
                                 </label>
-                                <input type="file" placeholder="Type here" class=" w-full flex items-center" required name='pimage' />
+                                <input type="file" placeholder="Type here" className=" w-full flex items-center" required name='pimage' />
 
                             </div>
                             <button type='submit' className='mt-4 btn btn-primary w-full text-white font-semibold'>{uloading ? <i className='bx bx-loader-alt font-semibold animate-spin text-xl'></i> : 'submit'}</button>

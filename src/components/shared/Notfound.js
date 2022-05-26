@@ -29,7 +29,7 @@ to-rose-100"
                         </p>
                         <Link
                             to="/home"
-                            class="px-6 py-2 text-sm font-semibold text-black bg-rose-100"
+                            className="px-6 py-2 text-sm font-semibold text-black bg-rose-100"
                         >Go home</Link>
 
                     </div>

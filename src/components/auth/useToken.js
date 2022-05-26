@@ -12,8 +12,9 @@ const useToken = (user) => {
                 photo: user?.user?.photoURL
             }
 
+
             const postData = async () => {
-                const { data } = await axios.put(`http://localhost:5000/user/${email}`, userdata);
+                const { data } = await axios.put(`https://floating-eyrie-91956.herokuapp.com/user/${email}`, userdata);
 
                 localStorage.setItem('accesstoken', data.accesstoken);
                 setToken(data.accesstoken);

@@ -84,7 +84,7 @@ const Signin = () => {
 
                         <p className='text-gray-500 '>New to Mobile kit  <Link className='text-primary underline' to="/signup">Registration now</Link></p>
                         <p onClick={() => setmodal(true)} className='text-primary capitalize underline cursor-pointer'>reset password</p>
-                        {/* <label for="my-modal" class="btn modal-button">open modal</label> */}
+                        {/* <label htmlFor="my-modal" className="btn modal-button">open modal</label> */}
 
                         <div className="flex flex-col w-full  ">
 

@@ -16,7 +16,7 @@ const Checkoutform = ({ data }) => {
         if (price) {
             const getdata = async () => {
                 try {
-                    const data = await fetch(`http://localhost:5000/create-payment-intent`, {
+                    const data = await fetch(`https://floating-eyrie-91956.herokuapp.com/create-payment-intent`, {
                         method: "POST",
                         headers: {
                             'content-type': 'application/json',
@@ -104,7 +104,7 @@ const Checkoutform = ({ data }) => {
             setTransection(paymentIntent?.id);
 
             try {
-                const data = await axios.patch(`http://localhost:5000/order/${id}`, payment, {
+                const data = await axios.patch(`https://floating-eyrie-91956.herokuapp.com/order/${id}`, payment, {
                     headers: {
                         'content-type': 'application/json',
                         'authorization': `bearer ${localStorage.getItem('accesstoken')}`

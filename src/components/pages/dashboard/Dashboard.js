@@ -11,17 +11,17 @@ const Dashboard = () => {
 
     return (
         <>
-            <div class="drawer drawer-mobile">
-                <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
-                <div class="drawer-content">
+            <div className="drawer drawer-mobile">
+                <input id="sidebar" type="checkbox" className="drawer-toggle" />
+                <div className="drawer-content">
 
-                    {/* <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">Open drawer</label> */}
+                    {/* <label htmlFor="sidebar" className="btn btn-primary drawer-button lg:hidden">Open drawer</label> */}
                     <Outlet></Outlet>
 
                 </div>
-                <div class="drawer-side ">
-                    <label for="my-drawer-2" class="drawer-overlay"></label>
-                    <ul class="menu p-4 overflow-y-auto bg-gray-100 shadow-xl w-80  text-base-content">
+                <div className="drawer-side ">
+                    <label htmlFor="sidebar" className="drawer-overlay"></label>
+                    <ul className="menu p-4 overflow-y-auto bg-gray-100 shadow-xl w-80  text-base-content">
                         <li><Link to="/dashboard">Profile</Link></li>
                         {
                             admin && <>

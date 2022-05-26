@@ -28,7 +28,6 @@ const App = () => {
   const [user, loading, error] = useAuthState(auth);
   const [admin] = useAdmin(user);
 
-  console.log(user);
   return (
     <>
       <Header></Header>

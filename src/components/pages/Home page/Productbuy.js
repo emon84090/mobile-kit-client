@@ -21,7 +21,7 @@ const Productbuy = () => {
 
     // useEffect(() => {
     //     const getData = async () => {
-    //         const { data } = await axios.get(`http://localhost:5000/allproduct/${id}`, {
+    //         const { data } = await axios.get(`https://floating-eyrie-91956.herokuapp.com/allproduct/${id}`, {
     //             headers: {
     //                 'authorization': `bearer ${localStorage.getItem('accesstoken')}`
     //             }
@@ -36,7 +36,7 @@ const Productbuy = () => {
 
 
 
-    const { data: product, isLoading, refetch } = useQuery('singleproducts', () => fetch(`http://localhost:5000/allproduct/${id}`, {
+    const { data: product, isLoading, refetch } = useQuery('singleproducts', () => fetch(`https://floating-eyrie-91956.herokuapp.com/allproduct/${id}`, {
         headers: {
             'authorization': `bearer ${localStorage.getItem('accesstoken')}`
         }
@@ -100,14 +100,14 @@ const Productbuy = () => {
             id: product._id
         }
         try {
-            const { data } = await axios.put(`http://localhost:5000/productqty`, updateqty, {
+            const { data } = await axios.put(`https://floating-eyrie-91956.herokuapp.com/productqty`, updateqty, {
                 headers: {
                     'authorization': `bearer ${localStorage.getItem('accesstoken')}`
                 }
             });
             if (data.modifiedCount) {
                 try {
-                    const postData = await axios.post(`http://localhost:5000/order`, orderdata, {
+                    const postData = await axios.post(`https://floating-eyrie-91956.herokuapp.com/order`, orderdata, {
                         headers: {
                             'authorization': `bearer ${localStorage.getItem('accesstoken')}`
                         }
@@ -131,47 +131,47 @@ const Productbuy = () => {
         <>
             <div className="singleproduct-all py-10 min-h-screen flex justify-center items-center">
 
-                <div class="flex flex-col max-w-lg w-full bg-white dark:bg-gray-800  rounded-lg shadow-xl">
-                    <div class="flex-none   relative">
-                        <img src={product?.image} alt="charger" class=" rounded-lg inset-0 w-full max-h-48  object-contain" />
+                <div className="flex flex-col max-w-lg w-full bg-white dark:bg-gray-800  rounded-lg shadow-xl">
+                    <div className="flex-none   relative">
+                        <img src={product?.image} alt="charger" className=" rounded-lg inset-0 w-full max-h-48  object-contain" />
                     </div>
-                    <form class="flex-auto p-6" onSubmit={placeorderform}>
-                        <div class="flex flex-wrap">
-                            <h1 class="flex-auto text-xl capitalize font-semibold dark:text-gray-50">
+                    <form className="flex-auto p-6" onSubmit={placeorderform}>
+                        <div className="flex flex-wrap">
+                            <h1 className="flex-auto text-xl capitalize font-semibold dark:text-gray-50">
                                 {product?.name}
                             </h1>
 
-                            <div class="text-xl font-semibold text-gray-500 dark:text-gray-300">
+                            <div className="text-xl font-semibold text-gray-500 dark:text-gray-300">
                                 {product?.price}$
                             </div>
 
-                            <div class="w-full flex-none text-sm font-medium text-gray-500 dark:text-gray-300 mt-2">
-                                <h1 class="flex-auto text-xl text-primary mb-3 capitalize font-semibold ">
+                            <div className="w-full flex-none text-sm font-medium text-gray-500 dark:text-gray-300 mt-2">
+                                <h1 className="flex-auto text-xl text-primary mb-3 capitalize font-semibold ">
                                     avilable qty: {product?.quantity}
                                 </h1>
 
                                 minimum quantity <span className='font-bold text-gray-600'>{product?.minumumqty}</span>
                             </div>
-                            <div class="w-full flex-none text-sm font-medium text-gray-500 dark:text-gray-300 mt-2">
+                            <div className="w-full flex-none text-sm font-medium text-gray-500 dark:text-gray-300 mt-2">
                                 maximum quantity <span className='font-bold text-gray-600'>{product?.maximumqty}</span>
                             </div>
                         </div>
 
-                        <input disabled value={user.displayName} type="text" placeholder="name" class="input border border-gray-300 mt-3 w-full" name='bname' />
-                        <input disabled value={user.email} type="text" placeholder="email" class="input border border-gray-300 mt-3 w-full" name='bemail' />
+                        <input disabled value={user.displayName} type="text" placeholder="name" className="input border border-gray-300 mt-3 w-full" name='bname' />
+                        <input disabled value={user.email} type="text" placeholder="email" className="input border border-gray-300 mt-3 w-full" name='bemail' />
 
-                        <input type="text" placeholder="phone" class="input border border-gray-300 mt-3 w-full" name='bphone' required />
-                        <input type="text" placeholder="address" class="input border border-gray-300 mt-3 w-full" name='baddress' required />
+                        <input type="text" placeholder="phone" className="input border border-gray-300 mt-3 w-full" name='bphone' required />
+                        <input type="text" placeholder="address" className="input border border-gray-300 mt-3 w-full" name='baddress' required />
 
-                        <input onChange={quantityhandle} defaultValue={product?.minumumqty} type="number" placeholder="Quantity" name='qty' class="input border border-gray-300 mt-3 w-full" required />
+                        <input onChange={quantityhandle} defaultValue={product?.minumumqty} type="number" placeholder="Quantity" name='qty' className="input border border-gray-300 mt-3 w-full" required />
 
 
-                        <div class="flex mb-4 text-sm font-medium mt-5">
-                            <button disabled={disabled} type="submit" class="py-2 px-4 capitalize bg-rose-600 disabled:cursor-not-allowed disabled:bg-rose-400 hover:bg-rose-700 focus:ring-rose-500 focus:ring-offset-rose-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                        <div className="flex mb-4 text-sm font-medium mt-5">
+                            <button disabled={disabled} type="submit" className="py-2 px-4 capitalize bg-rose-600 disabled:cursor-not-allowed disabled:bg-rose-400 hover:bg-rose-700 focus:ring-rose-500 focus:ring-offset-rose-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
                                 place order
                             </button>
                         </div>
-                        <p class="text-sm text-gray-500 dark:text-gray-300">
+                        <p className="text-sm text-gray-500 dark:text-gray-300">
                             Free shipping on all continental US orders.
                         </p>
                     </form>

@@ -21,7 +21,7 @@ const Payment = () => {
             if (id) {
 
                 try {
-                    const data = await fetch(`http://localhost:5000/payment?id=${id}`, {
+                    const data = await fetch(`https://floating-eyrie-91956.herokuapp.com/payment?id=${id}`, {
                         method: "GET",
                         headers: {
                             'authorization': `bearer ${localStorage.getItem('accesstoken')}`
@@ -45,15 +45,15 @@ const Payment = () => {
         <>
 
             <div className="payment-all-content mt-5 flex flex-col justify-center items-center">
-                <div class="card w-full max-w-md bg-base-100 shadow-xl">
-                    <div class="card-body">
-                        <h2 class="card-title text-accent font-bold">Pay For: <span className='text-primary'>{data?.item_name}</span></h2>
+                <div className="card w-full max-w-md bg-base-100 shadow-xl">
+                    <div className="card-body">
+                        <h2 className="card-title text-accent font-bold">Pay For: <span className='text-primary'>{data?.item_name}</span></h2>
                         <p className='text-accent'>quantity: <span className='font-semibold'>{data?.qty} pis</span></p>
                         <p className='text-accent font-bold capitalize'>please pay: {data?.price * data?.qty}$</p>
                     </div>
                 </div>
-                <div class="card w-full max-w-md bg-base-100 shadow-xl mt-5">
-                    <div class="card-body">
+                <div className="card w-full max-w-md bg-base-100 shadow-xl mt-5">
+                    <div className="card-body">
                         <Elements stripe={stripePromise}>
                             <Checkoutform data={data} />
                         </Elements>

@@ -1,5 +1,6 @@
 import { async } from '@firebase/util';
 import axios from 'axios';
+import { signOut } from 'firebase/auth';
 import React, { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
@@ -15,7 +16,7 @@ const Myorders = () => {
     const [deletemodal, setDelete] = useState(false);
     const [deletemail, setDelemail] = useState('');
 
-    const { data: myorder, isLoading, refetch } = useQuery('myorder', () => fetch(`http://localhost:5000/order/${user.email}`, {
+    const { data: myorder, isLoading, refetch } = useQuery('myorder', () => fetch(`https://floating-eyrie-91956.herokuapp.com/order/${user.email}`, {
         headers: {
             'authorization': `bearer ${localStorage.getItem('accesstoken')}`
         }
@@ -25,7 +26,9 @@ const Myorders = () => {
         return <Spinner></Spinner>
     }
 
-
+    if (myorder.message === "forbidden access" || myorder.message === "unauthorized access") {
+        signOut(auth)
+    }
     const cancelorder = (id) => {
         setDelete(true);
         setDelemail(id)
@@ -36,8 +39,8 @@ const Myorders = () => {
 
             <div className="users-table-conten p-4">
                 {deletemodal && <Cancelordermodal cancleid={deletemail} refetch={refetch} setDelete={setDelete}></Cancelordermodal>}
-                <div class="overflow-x-auto w-full">
-                    <table class="table w-full text-center">
+                <div className="overflow-x-auto w-full">
+                    <table className="table w-full text-center">
 
                         <thead>
                             <tr>
@@ -69,8 +72,8 @@ const Myorders = () => {
                                 <th>
                                     {val.status === "unpaid" &&
                                         <>
-                                            <Link to={`/dashboard/payment/${val._id}`}><button class="btn btn-success btn-sm text-white ml-3">payment</button></Link>
-                                            <button onClick={() => cancelorder(val._id)} class="btn btn-error btn-sm text-white ml-3">Cancel</button>
+                                            <Link to={`/dashboard/payment/${val._id}`}><button className="btn btn-success btn-sm text-white ml-3">payment</button></Link>
+                                            <button onClick={() => cancelorder(val._id)} className="btn btn-error btn-sm text-white ml-3">Cancel</button>
                                         </>
 
                                     }

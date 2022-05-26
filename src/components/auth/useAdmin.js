@@ -10,7 +10,7 @@ const useAdmin = (user) => {
         if (email) {
             const getAdmindata = async () => {
                 try {
-                    const data = await fetch(`http://localhost:5000/admin/${email}`, {
+                    const data = await fetch(`https://floating-eyrie-91956.herokuapp.com/admin/${email}`, {
                         method: "GET",
                         headers: {
                             'content-type': 'application/json',

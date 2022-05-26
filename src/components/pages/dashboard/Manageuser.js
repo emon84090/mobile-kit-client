@@ -1,7 +1,9 @@
 import { async } from '@firebase/util';
 import axios from 'axios';
+import { signOut } from 'firebase/auth';
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
+import auth from '../../auth/firebaseconfig';
 import switalert from '../../shared/Alert';
 import Spinner from '../../shared/Spinner';
 import Deleteusermodal from './Deleteusermodal';
@@ -11,7 +13,7 @@ const Manageuser = () => {
     const [deletemail, setDelemail] = useState('');
 
 
-    const { data: users, isLoading, refetch } = useQuery('users', () => fetch(`http://localhost:5000/users`, {
+    const { data: users, isLoading, refetch } = useQuery('users', () => fetch(`https://floating-eyrie-91956.herokuapp.com/users`, {
         headers: {
             'authorization': `bearer ${localStorage.getItem('accesstoken')}`
         }
@@ -23,9 +25,17 @@ const Manageuser = () => {
 
 
 
+    if (users.message === "forbidden access" || users.message === "unauthorized access") {
+        signOut(auth)
+    }
+
+
+
+
+
     const makeadmin = async (email) => {
         try {
-            const data = await fetch(`http://localhost:5000/user/admin/${email}`, {
+            const data = await fetch(`https://floating-eyrie-91956.herokuapp.com/user/admin/${email}`, {
                 method: "PUT",
                 headers: {
                     'authorization': `bearer ${localStorage.getItem('accesstoken')}`
@@ -49,7 +59,7 @@ const Manageuser = () => {
 
     const removeadmin = async (email) => {
         try {
-            const data = await fetch(`http://localhost:5000/user/adminremove/${email}`, {
+            const data = await fetch(`https://floating-eyrie-91956.herokuapp.com/user/adminremove/${email}`, {
                 method: "PUT",
                 headers: {
                     'authorization': `bearer ${localStorage.getItem('accesstoken')}`
@@ -82,8 +92,8 @@ const Manageuser = () => {
 
             <div className="users-table-conten p-4">
                 {deletemodal && <Deleteusermodal deletemail={deletemail} refetch={refetch} setDelete={setDelete}></Deleteusermodal>}
-                <div class="overflow-x-auto w-full">
-                    <table class="table w-full text-center">
+                <div className="overflow-x-auto w-full">
+                    <table className="table w-full text-center">
 
                         <thead>
                             <tr>
@@ -95,19 +105,19 @@ const Manageuser = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {users.map((val, index) => <tr>
+                            {users.map((val, index) => <tr key={val._id}>
                                 <th>
                                     {index + 1}
                                 </th>
                                 <td>
-                                    <div class="flex items-center space-x-3">
-                                        <div class="avatar">
-                                            <div class="mask mask-squircle w-12 h-12">
+                                    <div className="flex items-center space-x-3">
+                                        <div className="avatar">
+                                            <div className="mask mask-squircle w-12 h-12">
                                                 <img src={val.photo ? val.photo : 'https://i.ibb.co/tHX2Mmt/User-Avatar-in-Suit-PNG.png'} alt="user avater" />
                                             </div>
                                         </div>
                                         <div>
-                                            <div class="font-bold">{val.name}</div>
+                                            <div className="font-bold">{val.name}</div>
 
                                         </div>
                                     </div>
@@ -118,12 +128,12 @@ const Manageuser = () => {
                                 </td>
                                 <td><span className='font-bold capitalize text-sm'>{val.role ? val.role : 'user'}</span></td>
                                 <th>
-                                    {val.role === "admin" ? <button onClick={() => removeadmin(val.email)} class="btn btn-primary btn-md">Remove admin</button>
+                                    {val.role === "admin" ? <button onClick={() => removeadmin(val.email)} className="btn btn-primary btn-md">Remove admin</button>
                                         :
-                                        <button onClick={() => makeadmin(val.email)} class="btn btn-primary btn-md">Make admin</button>
+                                        <button onClick={() => makeadmin(val.email)} className="btn btn-primary btn-md">Make admin</button>
                                     }
 
-                                    <button onClick={() => deleteac(val.email)} class="btn btn-error text-white btn-md ml-3">Delete</button>
+                                    <button onClick={() => deleteac(val.email)} className="btn btn-error text-white btn-md ml-3">Delete</button>
                                 </th>
                             </tr>)}
 

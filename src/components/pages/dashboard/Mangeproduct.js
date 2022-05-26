@@ -1,12 +1,14 @@
+import { signOut } from 'firebase/auth';
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
+import auth from '../../auth/firebaseconfig';
 import Spinner from '../../shared/Spinner';
 import Deleteproductmodal from './Deleteproductmodal';
 
 const Mangeproduct = () => {
     const [deletemodal, setDelete] = useState(false);
     const [deleteid, setDelid] = useState('');
-    const { data: products, isLoading, refetch } = useQuery('products', () => fetch(`http://localhost:5000/allproduct`, {
+    const { data: products, isLoading, refetch } = useQuery('products', () => fetch(`https://floating-eyrie-91956.herokuapp.com/allproduct`, {
         headers: {
             'authorization': `bearer ${localStorage.getItem('accesstoken')}`
         }
@@ -20,6 +22,9 @@ const Mangeproduct = () => {
         setDelete(true);
         setDelid(id)
     }
+    if (products.message === "forbidden access" || products.message === "unauthorized access") {
+        signOut(auth)
+    }
 
 
     return (
@@ -28,8 +33,8 @@ const Mangeproduct = () => {
 
             <div className="table-all-content p-4">
                 <h2 className='my-5 text-2xl font-semibold text-primary'>All Product</h2>
-                <div class="overflow-x-auto ">
-                    <table class="table table-zebra w-full">
+                <div className="overflow-x-auto ">
+                    <table className="table table-zebra w-full">
 
                         <thead>
                             <tr>
@@ -45,8 +50,8 @@ const Mangeproduct = () => {
                         <tbody>
                             {products.map((val, index) => <tr key={val._id}>
                                 <th>{index + 1}</th>
-                                <td><div class="avatar">
-                                    <div class="w-16 rounded-full">
+                                <td><div className="avatar">
+                                    <div className="w-16 rounded-full">
                                         <img src={val.image} alt="" />
                                     </div>
                                 </div></td>

@@ -19,7 +19,7 @@ const Addreview = () => {
         }
 
         try {
-            const { data } = await axios.post(`http://localhost:5000/review`, formdata, {
+            const { data } = await axios.post(`https://floating-eyrie-91956.herokuapp.com/review`, formdata, {
                 headers: {
                     'authorization': `bearer ${localStorage.getItem('accesstoken')}`
                 }
@@ -44,24 +44,24 @@ const Addreview = () => {
             <h2 className='text-2xl font-semibold ml-10 text-primary mt-10'>Add Review</h2>
 
             <div className="review-all-content flex justify-center items-center">
-                <div class="card w-full max-w-lg bg-base-100 shadow-xl">
-                    <div class="card-body">
+                <div className="card w-full max-w-lg bg-base-100 shadow-xl">
+                    <div className="card-body">
                         <form onSubmit={reviewform}>
-                            <div class="form-control w-full">
-                                <label class="label">
-                                    <span class="label-text">Name</span>
+                            <div className="form-control w-full">
+                                <label className="label">
+                                    <span className="label-text">Name</span>
 
                                 </label>
-                                <input name='username' value={user?.displayName} type="text" placeholder="Type here" class="input input-bordered w-full input-disabled" />
+                                <input name='username' value={user?.displayName} type="text" placeholder="Type here" className="input input-bordered w-full input-disabled" />
 
                             </div>
 
-                            <div class="form-control w-full">
-                                <label class="label">
-                                    <span class="label-text">review star</span>
+                            <div className="form-control w-full">
+                                <label className="label">
+                                    <span className="label-text">review star</span>
 
                                 </label>
-                                <select name='reviewcount' class="select w-full border border-gray-200" required>
+                                <select name='reviewcount' className="select w-full border border-gray-200" required>
 
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -73,12 +73,12 @@ const Addreview = () => {
 
                             </div>
 
-                            <div class="form-control w-full">
-                                <label class="label">
-                                    <span class="label-text"> Review</span>
+                            <div className="form-control w-full">
+                                <label className="label">
+                                    <span className="label-text"> Review</span>
 
                                 </label>
-                                <textarea class="textarea w-full  border border-gray-300" placeholder="Bio" name='review' required></textarea>
+                                <textarea className="textarea w-full  border border-gray-300" placeholder="Bio" name='review' required></textarea>
 
                             </div>
                             <button type='submit' className='btn btn-primary mt-3'>add</button>

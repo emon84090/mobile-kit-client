@@ -15,7 +15,7 @@ const Requareadmin = ({ children }) => {
     if (loading || aloading) {
         return <Spinner></Spinner>
     }
-    console.log(admin);
+
 
     if (!user || !admin) {
         signOut(auth)
