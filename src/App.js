@@ -22,6 +22,7 @@ import Productbuy from './components/pages/Home page/Productbuy';
 import Portfolio from './components/pages/portfolio/Portfolio';
 import Footer from './components/shared/Footer';
 import Header from './components/shared/Header';
+import Notfound from './components/shared/Notfound';
 
 const App = () => {
   const [user, loading, error] = useAuthState(auth);
@@ -33,6 +34,8 @@ const App = () => {
       <Header></Header>
       <Routes>
         <Route path='/' element={<Home></Home>}></Route>
+        <Route path='/home' element={<Home></Home>}></Route>
+        <Route path='*' element={<Notfound></Notfound>}></Route>
         <Route path='/signin' element={<Signin></Signin>}></Route>
         <Route path='/signup' element={<Signup></Signup>}></Route>
         <Route path='/signup' element={<Signup></Signup>}></Route>
