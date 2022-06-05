@@ -138,7 +138,7 @@ const Signup = () => {
 
     return (
         <>
-            <section className=' min-h-screen  flex justify-center items-center'>
+            <section className=' min-h-screen flex justify-center items-center'>
 
                 <div className="card mt-16 max-w-md mx-auto w-full bg-base-100 shadow-xl">
                     <div className="card-body">

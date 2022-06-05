@@ -21,6 +21,10 @@
 * stripe js for payment system
 * jwt token for secuare api
 
+# Admin information
+* email:jahirul84090@gmail.com
+* password: Emon12345
+
 
  here is the live link
 Open [live site](https://mobile-kit.netlify.app/) to view it in your browser.
